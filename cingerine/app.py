@@ -10,6 +10,7 @@ from cingerine.database import db
 from cingerine.api.dooh.endpoints.categories import ns as blog_categories_namespace
 from cingerine.api.dooh.endpoints.players import ns as players_namespace
 from cingerine.api.dooh.endpoints.posts import ns as blog_posts_namespace
+from cingerine.api.dooh.endpoints.assets import ns as assets_namespace
 from cingerine.api.restplus import api
 
 migrate = Migrate()
@@ -53,6 +54,7 @@ def initialize_app():
     api.add_namespace(blog_posts_namespace)
     api.add_namespace(blog_categories_namespace)
     api.add_namespace(players_namespace)
+    api.add_namespace(assets_namespace)
     app.register_blueprint(blueprint)
 
     return app

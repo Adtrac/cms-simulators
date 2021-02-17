@@ -1,3 +1,4 @@
 .idea
 /cingerine/db.sqlite
 cingerine/migrations/
+/cingerine/uploads/
