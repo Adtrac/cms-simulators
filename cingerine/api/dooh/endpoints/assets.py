@@ -1,8 +1,7 @@
 import logging
 import os
 
-import werkzeug
-from flask_restplus import Resource, abort, reqparse
+from flask_restplus import Resource, abort
 
 from cingerine import settings
 from cingerine.api.dooh import parsers
@@ -21,20 +20,19 @@ class AssetsCollection(Resource):
 
         # none of the below is working yet
 
-        parse = reqparse.RequestParser()
-        parse.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')
-        args = parse.parse_args()
-        image_file = args['file']
-        image_file.save("your_file_name.jpg")
-
-
         args = parsers.file_upload.parse_args()
-        if args['xls_file'].mimetype == 'application/xls':
-            destination = os.path.join(settings.DATA_FOLDER, 'medias')
-            if not os.path.exists(destination):
-                os.makedirs(destination)
-            xls_file = '%s%s' % (destination, 'custom_file_name.xls')
-            args['xls_file'].save(xls_file)
-        else:
+        if args['video'].mimetype != 'video/mp4':
             abort(404)
+
+        video_file = args['video']
+        filename = args['fileName']
+
+        destination = os.path.join(settings.DATA_FOLDER, 'videos')
+
+        if not os.path.exists(destination):
+            os.makedirs(destination)
+
+        full_path = os.path.join(destination, filename)
+        video_file.save(full_path)
+
         return {'status': 'Done'}
