@@ -20,6 +20,19 @@ def create_player(data):
     db.session.commit()
 
 
+def update_player(player_id, data):
+    player = Post.query.filter(Post.id == player_id).one()  # noqa
+    player.name = data.get('name')
+    db.session.add(player)
+    db.session.commit()
+
+
+def delete_player(player_id):
+    player = Player.query.filter(Player.id == player_id).one()  # noqa
+    db.session.delete(player)
+    db.session.commit()
+
+
 def update_post(post_id, data):
     post = Post.query.filter(Post.id == post_id).one()  # noqa
     post.title = data.get('name')

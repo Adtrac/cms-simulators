@@ -29,7 +29,7 @@ class Post(db.Model):
 
 
 class Player(db.Model):
-    playerId = db.Column(db.Integer, primary_key=True)
+    playerId = db.Column(db.String(16), primary_key=True)
     name = db.Column(db.String(80))
 
     def __init__(self, player_id, name):

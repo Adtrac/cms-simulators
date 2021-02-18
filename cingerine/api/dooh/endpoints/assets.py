@@ -9,7 +9,7 @@ from cingerine.api.restplus import api
 
 log = logging.getLogger(__name__)
 
-ns = api.namespace(f'{settings.API_VERSION}/assets', description='Operations related to video assets')
+ns = api.namespace(f'dooh/{settings.API_VERSION}/assets', description='Operations related to video assets')
 
 
 @ns.route('/')
