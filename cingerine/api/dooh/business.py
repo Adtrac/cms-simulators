@@ -1,5 +1,11 @@
+import uuid
+
 from cingerine.database import db
-from cingerine.database.models import Post, Category, Player
+from cingerine.database.models import Post, Category, Player, PlayoutPlan
+import logging
+
+
+log = logging.getLogger(__name__)
 
 
 def create_blog_post(data):
@@ -13,24 +19,20 @@ def create_blog_post(data):
 
 
 def create_player(data):
-    player_id = data.get('playerId')
-    name = data.get('name')
-    player = Player(player_id, name)
+    player = Player(**data)
     db.session.add(player)
     db.session.commit()
+    log.info(f"Saved {player}")
 
 
-def update_player(player_id, data):
-    player = Post.query.filter(Post.id == player_id).one()  # noqa
-    player.name = data.get('name')
-    db.session.add(player)
+def create_playout(data):
+    playout = PlayoutPlan(**data)
+    if playout.playoutId is None:
+        playout.playoutId = str(uuid.uuid4())
+    db.session.add(playout)
     db.session.commit()
-
-
-def delete_player(player_id):
-    player = Player.query.filter(Player.id == player_id).one()  # noqa
-    db.session.delete(player)
-    db.session.commit()
+    log.info(f"Saved Playout Plan with id {playout.playoutId}")
+    return playout.playoutId
 
 
 def update_post(post_id, data):

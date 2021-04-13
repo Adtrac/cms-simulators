@@ -7,7 +7,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 log = logging.getLogger(__name__)
 
-api = Api(version='1.1', title='Cingerine DOOH API',
+api = Api(version='1.0', title='Adtrac Standard DOOH API',
           description='Simulator Endpoint')
 
 

@@ -10,7 +10,7 @@ flask = "*"
 flask-restplus = "*"
 flask-migrate = "*"
 werkzeug = "==0.16.1"
-Flask-SQLAlchemy = "==2.1"
+Flask-SQLAlchemy = "*"
 
 [requires]
 python_version = "3.8"

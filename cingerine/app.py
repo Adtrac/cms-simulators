@@ -7,10 +7,12 @@ from flask_migrate import Migrate
 
 from cingerine import settings
 from cingerine.database import db
-from cingerine.api.dooh.endpoints.categories import ns as blog_categories_namespace
+# from cingerine.api.dooh.endpoints.categories import ns as blog_categories_namespace
+# from cingerine.api.dooh.endpoints.posts import ns as blog_posts_namespace
 from cingerine.api.dooh.endpoints.players import ns as players_namespace
-from cingerine.api.dooh.endpoints.posts import ns as blog_posts_namespace
 from cingerine.api.dooh.endpoints.assets import ns as assets_namespace
+from cingerine.api.dooh.endpoints.playouts import ns as playouts_namespace
+from cingerine.api.dooh.endpoints.reports import ns as reports_namespace
 from cingerine.api.restplus import api
 
 migrate = Migrate()
@@ -49,12 +51,14 @@ def initialize_app():
     migrate.init_app(app, db)
     log.info("Done.")
 
-    blueprint = Blueprint('api', __name__, url_prefix='/api')
+    blueprint = Blueprint('api', __name__, url_prefix=settings.URL_PREFIX)
     api.init_app(blueprint)
-    api.add_namespace(blog_posts_namespace)
-    api.add_namespace(blog_categories_namespace)
+    # api.add_namespace(blog_posts_namespace)
+    # api.add_namespace(blog_categories_namespace)
     api.add_namespace(players_namespace)
     api.add_namespace(assets_namespace)
+    api.add_namespace(playouts_namespace)
+    api.add_namespace(reports_namespace)
     app.register_blueprint(blueprint)
 
     return app
@@ -62,7 +66,7 @@ def initialize_app():
 
 def main():
     app = initialize_app()
-    log.info('>>>>> Starting development server at http://{}/api/ <<<<<'.format(app.config['SERVER_NAME']))
+    app.logger.info(f'>>> Starting development server at http://{app.config["SERVER_NAME"]}{settings.URL_PREFIX} <<<')
     app.run(debug=settings.FLASK_DEBUG)
 
 
