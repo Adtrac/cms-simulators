@@ -40,15 +40,6 @@ class Time(Raw):
             raise ValueError("Unsupported Time format")
 
 
-blog_post = api.model('Blog post', {
-    'id': fields.Integer(readOnly=True, description='The unique identifier of a blog post'),
-    'title': fields.String(required=True, description='Article title'),
-    'body': fields.String(required=True, description='Article content'),
-    'pub_date': fields.DateTime,
-    'category_id': fields.Integer(attribute='category.id'),
-    'category': fields.String(attribute='category.name')
-})
-
 report_item = api.model('Report item', {
     'a': fields.String(required=True, description='Asset ID'),
     'p': fields.String(required=True, description='Player ID'),
@@ -110,19 +101,12 @@ playoutPlan = api.model('Playout Plan', {
     'targetGroup': fields.Nested(targetGroup, required=False)
 })
 
-
 pagination = api.model('A page of results', {
     'page': fields.Integer(description='Number of this page of results'),
     'pages': fields.Integer(description='Total number of pages of results'),
     'per_page': fields.Integer(description='Number of items per page of results'),
     'total': fields.Integer(description='Total number of results')
 })
-
-
-page_of_blog_posts = api.inherit('Page of blog posts', pagination, {
-    'items': fields.List(fields.Nested(blog_post))
-})
-
 
 page_of_players = api.inherit('Page of Players', pagination, {
     'items': fields.List(fields.Nested(player))
@@ -134,13 +118,4 @@ page_of_playouts = api.inherit('Page of Playout Plans', pagination, {
 
 list_of_counts = api.model('Playout Count', {
     'report': fields.List(fields.Nested(report_item))
-})
-
-category = api.model('Blog category', {
-    'id': fields.Integer(readOnly=True, description='The unique identifier of a blog category'),
-    'name': fields.String(required=True, description='Category name'),
-})
-
-category_with_posts = api.inherit('Blog category with posts', category, {
-    'posts': fields.List(fields.Nested(blog_post))
 })
