@@ -1,4 +1,5 @@
+UPLOADS
+cingerine/db.sqlite
 .idea
-/cingerine/db.sqlite
-/cingerine/migrations/
-/cingerine/uploads/
+__pycache__
+.DS_Store
