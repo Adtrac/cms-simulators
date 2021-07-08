@@ -1,7 +1,7 @@
 import tempfile
 
 # Flask settings
-FLASK_SERVER_NAME = 'localhost:8882'
+FLASK_SERVER_NAME = 'localhost:8881'
 FLASK_DEBUG = True  # Do not use debug mode in production
 
 # Flask-Restplus settings
