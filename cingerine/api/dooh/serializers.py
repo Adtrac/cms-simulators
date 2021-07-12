@@ -14,7 +14,7 @@ class Time(Raw):
     __schema_type__ = "string"
     __schema_format__ = "time"
 
-    def __init__(self, time_format="%H:%M%:%S", **kwargs):
+    def __init__(self, time_format="%H:%M:%S", **kwargs):
         super(Time, self).__init__(**kwargs)
         self.time_format = time_format
 
